@@ -4,6 +4,9 @@ public class HolaMundo {
 
      System.out.println("Mi primer hola mundo en JAVA!!");
 
- }
+      //Creacion de la variable x de un entero
+      int x = 2; 
+             
+}
 
 }
