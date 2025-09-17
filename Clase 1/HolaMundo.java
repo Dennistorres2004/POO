@@ -7,3 +7,4 @@ public class HolaMundo {
         System.out.println("El valor de x es: " + x);
     }
 }
+ 

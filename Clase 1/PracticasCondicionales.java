@@ -84,15 +84,21 @@ public class PracticasCondicionales {
           *Salida: mostrar
           */
 
-        
-        
-        
-        
-         }
-
-
-
-         
-         
-        
+          int a = 90;
+        if (a < 90) {
+            System.out.println("Ángulo Agudo");
+        } else {
+            if (a > 90) {
+                System.out.println("Ángulo Obtuso");
+            } else {
+                System.out.println("Ángulo Recto");
+            }
+        }
     }
+}
+
+        
+        
+        
+        
+       
