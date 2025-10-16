@@ -1,0 +1,40 @@
+1.
+TABLA 1: Atributos
+------------------------------------------------------------
+| Nombre       | Tipo de dato | Visibilidad | Descripción                     |
+------------------------------------------------------------
+| titular      | String       | private      | Nombre del titular de la cuenta  |
+| numeroCuenta | String       | private      | Número único que identifica la cuenta |
+| saldo        | double       | private      | Monto disponible (mayor o igual a 0) |
+------------------------------------------------------------
+
+
+TABLA 2: Métodos
+-----------------------------------------------------------------------------------------
+| Nombre          | Parámetros                        | Retorno  | Descripción                        |
+-----------------------------------------------------------------------------------------
+| depositar       | double monto                      | void     | Aumenta el saldo en el valor indicado |
+| retirar         | double monto                      | void     | Disminuye el saldo si hay fondos suficientes |
+| consultarSaldo  | ninguno                           | double   | Devuelve el saldo actual de la cuenta |
+-----------------------------------------------------------------------------------------
+
+2.
+TABLA 1: Atributos
+------------------------------------------------------------
+| Nombre         | Tipo de dato | Visibilidad | Descripción                            |
+------------------------------------------------------------
+| codigo         | String       | private      | Código único que identifica el producto |
+| descripcion    | String       | private      | Detalle o nombre del producto           |
+| cantidad       | int          | private      | Cantidad de unidades (mínimo 1)         |
+| precioUnitario | double       | private      | Precio por unidad (mayor o igual a 0)   |
+------------------------------------------------------------
+
+
+TABLA 2: Métodos
+-----------------------------------------------------------------------------------------
+| Nombre          | Parámetros                         | Retorno  | Descripción                            |
+-----------------------------------------------------------------------------------------
+| calcularTotal   | ninguno                            | double   | Calcula el valor total (cantidad * precioUnitario) |
+| actualizarStock | int nuevaCantidad                  | void     | Cambia la cantidad de unidades disponibles          |
+| mostrarInfo     | ninguno                            | String   | Devuelve una descripción completa del producto      |
+-----------------------------------------------------------------------------------------

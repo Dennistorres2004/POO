@@ -1,81 +1,97 @@
 public class CuentaBancaria {
-    // Atributos
+    // Atributos privados
+    private String titular;
     private String numeroCuenta;
-    private String nombreTitular;
     private double saldo;
 
-    // Constructor
-    public CuentaBancaria(String numeroCuenta, String nombreTitular, double saldoInicial) {
-        this.numeroCuenta = numeroCuenta;
-        this.nombreTitular = nombreTitular;
-        if (saldoInicial >= 0) {
-            this.saldo = saldoInicial;
+    // Constructor por defecto
+    public CuentaBancaria() {
+        this.titular = "Sin nombre";
+        this.numeroCuenta = "000000";
+        this.saldo = 0.0;
+    }
+
+    // Constructor parametrizado con validaciones
+    public CuentaBancaria(String titular, String numeroCuenta, double saldo) {
+        if (titular == null || titular.trim().isEmpty()) {
+            this.titular = "Desconocido";
         } else {
-            this.saldo = 0;
-            System.out.println("El saldo inicial no puede ser negativo. Se ha establecido en 0.");
+            this.titular = titular;
+        }
+
+        if (numeroCuenta != null && numeroCuenta.length() >= 6) {
+            this.numeroCuenta = numeroCuenta;
+        } else {
+            this.numeroCuenta = "000000";
+        }
+
+        this.saldo = (saldo >= 0) ? saldo : 0.0;
+    }
+
+    // Getters y Setters con validaciones
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        if (titular != null && !titular.trim().isEmpty()) {
+            this.titular = titular;
         }
     }
 
-    // Métodos
-    public void depositar(double monto) {
-        if (monto > 0) {
-            saldo += monto;
-            System.out.println("Depósito exitoso. Nuevo saldo: " + saldo);
-        } else {
-            System.out.println("El monto a depositar debe ser positivo.");
-        }
-    }
-
-    public void retirar(double monto) {
-        if (monto > 0 && monto <= saldo) {
-            saldo -= monto;
-            System.out.println("Retiro exitoso. Nuevo saldo: " + saldo);
-        } else if (monto > saldo) {
-            System.out.println("Fondos insuficientes para el retiro.");
-        } else {
-            System.out.println("El monto a retirar debe ser positivo.");
-        }
-    }
-
-    public double consultarSaldo() {
-        return saldo;
-    }
-
-    // Getters y Setters
     public String getNumeroCuenta() {
         return numeroCuenta;
     }
 
     public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
+        if (numeroCuenta != null && numeroCuenta.length() >= 6) {
+            this.numeroCuenta = numeroCuenta;
+        }
     }
 
-    public String getNombreTitular() {
-        return nombreTitular;
+    public double getSaldo() {
+        return saldo;
     }
 
-    public void setNombreTitular(String nombreTitular) {
-        this.nombreTitular = nombreTitular;
+    // Método depositar
+    public void depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
+            System.out.println("Depósito exitoso. Nuevo saldo: " + saldo);
+        } else {
+            System.out.println("Error: el monto debe ser mayor a 0.");
+        }
     }
 
+    // Método retirar
+    public void retirar(double monto) {
+        if (monto > 0 && monto <= saldo) {
+            saldo -= monto;
+            System.out.println("Retiro exitoso. Nuevo saldo: " + saldo);
+        } else {
+            System.out.println("Error: monto inválido o saldo insuficiente.");
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Método toString
+    @Override
+    public String toString() {
+        return "Titular: " + titular + "\nNúmero de cuenta: " + numeroCuenta + "\nSaldo: $" + saldo;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
