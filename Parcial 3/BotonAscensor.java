@@ -1,12 +1,13 @@
 public class BotonAscensor extends Boton {
-    private int numeroPiso;
+    private int pisoDestino;
 
-    public BotonAscensor(int numeroPiso) {
-        super("BA-" + numeroPiso);
-        this.numeroPiso = numeroPiso;
+    public BotonAscensor(String nombre, int destino) {
+        super(nombre);
+        this.pisoDestino = destino;
     }
 
-    public int getNumeroPiso() {
-        return numeroPiso;
+    public int getDestino() {
+        return pisoDestino;
     }
 }
+

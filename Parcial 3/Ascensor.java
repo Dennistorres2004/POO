@@ -1,112 +1,49 @@
-import java.util.*;
+import java.util.PriorityQueue;
 
 public class Ascensor {
     private int pisoActual;
     private Direccion direccion;
     private Puerta puerta;
-    private Map<Integer, BotonAscensor> botonesInternos;
+    private PriorityQueue<Integer> destinos;
 
-    private TreeSet<Integer> solicitudesSubir;
-    private TreeSet<Integer> solicitudesBajar;
-    private int pisoMinimo = 1;
-    private int pisoMaximo;
+    public Ascensor() {
+        pisoActual = 0;
+        direccion = Direccion.QUIETO;
+        puerta = new Puerta();
+        destinos = new PriorityQueue<>();
+    }
 
-    public Ascensor(int pisoInicial, int pisoMaximo) {
-        this.pisoActual = pisoInicial;
-        this.direccion = Direccion.QUIETO;
-        this.puerta = new Puerta();
-        this.pisoMaximo = pisoMaximo;
-        this.botonesInternos = new HashMap<>();
+    public void agregarDestino(int piso) {
+        destinos.add(piso);
+        System.out.println(" Nueva solicitud: ir al piso " + piso);
+    }
 
-        for (int i = pisoMinimo; i <= pisoMaximo; i++) {
-            botonesInternos.put(i, new BotonAscensor(i));
+    public void tick() {
+        if (destinos.isEmpty()) {
+            direccion = Direccion.QUIETO;
+            return;
         }
 
-        solicitudesSubir = new TreeSet<>();
-        solicitudesBajar = new TreeSet<>(Comparator.reverseOrder());
-    }
+        int destino = destinos.peek();
 
-    public void agregarSolicitudInterna(int piso) {
-        if (piso == pisoActual) return;
-
-        botonesInternos.get(piso).encenderLuz();
-        if (piso > pisoActual)
-            solicitudesSubir.add(piso);
-        else
-            solicitudesBajar.add(piso);
-    }
-
-    public void agregarSolicitudExterna(int piso, Direccion direccion) {
-        if (piso == pisoActual) return;
-
-        if (direccion == Direccion.SUBIENDO)
-            solicitudesSubir.add(piso);
-        else
-            solicitudesBajar.add(piso);
-    }
-
-    public void mover() {
-        if (puerta.estaAbierta()) {
+        if (destino > pisoActual) {
+            direccion = Direccion.SUBIR;
+            pisoActual++;
+            System.out.println("⬆ Ascensor sube al piso " + pisoActual);
+        } else if (destino < pisoActual) {
+            direccion = Direccion.BAJAR;
+            pisoActual--;
+            System.out.println("⬇ Ascensor baja al piso " + pisoActual);
+        } else {
+            System.out.println(" Ascensor llegó al piso " + pisoActual);
+            destinos.poll();
+            puerta.abrir();
             puerta.cerrar();
-            if (puerta.estaAbierta()) return; // Si sigue abierta, no se mueve
         }
-
-        if (direccion == Direccion.QUIETO) {
-            if (!solicitudesSubir.isEmpty())
-                direccion = Direccion.SUBIENDO;
-            else if (!solicitudesBajar.isEmpty())
-                direccion = Direccion.BAJANDO;
-            else
-                return;
-        }
-
-        if (direccion == Direccion.SUBIENDO) {
-            if (pisoActual < pisoMaximo) pisoActual++;
-            System.out.println("Ascensor sube al piso " + pisoActual);
-
-            if (solicitudesSubir.contains(pisoActual) || solicitudesBajar.contains(pisoActual)) {
-                detenerEnPiso(pisoActual);
-                solicitudesSubir.remove(pisoActual);
-                solicitudesBajar.remove(pisoActual);
-                botonesInternos.get(pisoActual).apagarLuz();
-            }
-
-            if (solicitudesSubir.isEmpty() && !solicitudesBajar.isEmpty())
-                direccion = Direccion.BAJANDO;
-            else if (solicitudesSubir.isEmpty() && solicitudesBajar.isEmpty())
-                direccion = Direccion.QUIETO;
-        } else if (direccion == Direccion.BAJANDO) {
-            if (pisoActual > pisoMinimo) pisoActual--;
-            System.out.println("Ascensor baja al piso " + pisoActual);
-
-            if (solicitudesBajar.contains(pisoActual) || solicitudesSubir.contains(pisoActual)) {
-                detenerEnPiso(pisoActual);
-                solicitudesBajar.remove(pisoActual);
-                solicitudesSubir.remove(pisoActual);
-                botonesInternos.get(pisoActual).apagarLuz();
-            }
-
-            if (solicitudesBajar.isEmpty() && !solicitudesSubir.isEmpty())
-                direccion = Direccion.SUBIENDO;
-            else if (solicitudesSubir.isEmpty() && solicitudesBajar.isEmpty())
-                direccion = Direccion.QUIETO;
-        }
-    }
-
-    private void detenerEnPiso(int piso) {
-        puerta.abrir();
-        System.out.println("Ascensor llega al piso " + piso + ". Puerta abierta.");
     }
 
     public int getPisoActual() {
         return pisoActual;
     }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public Puerta getPuerta() {
-        return puerta;
-    }
 }
+

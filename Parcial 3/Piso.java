@@ -1,26 +1,25 @@
 public class Piso {
     private int numero;
-    private BotonPiso botonSubir;
-    private BotonPiso botonBajar;
+    public BotonPiso botonSubir;
+    public BotonPiso botonBajar;
 
-    public Piso(int numero, int totalPisos) {
+    public Piso(int numero) {
         this.numero = numero;
 
-        if (numero < totalPisos)
-            botonSubir = new BotonPiso(numero, Direccion.SUBIENDO);
-        if (numero > 1)
-            botonBajar = new BotonPiso(numero, Direccion.BAJANDO);
+        if (numero == 0) {
+            botonSubir = new BotonPiso("Piso " + numero + " SUBIR", Direccion.SUBIR);
+            botonBajar = null;
+        } else if (numero == SistemaControl.NUM_PISOS - 1) {
+            botonSubir = null;
+            botonBajar = new BotonPiso("Piso " + numero + " BAJAR", Direccion.BAJAR);
+        } else {
+            botonSubir = new BotonPiso("Piso " + numero + " SUBIR", Direccion.SUBIR);
+            botonBajar = new BotonPiso("Piso " + numero + " BAJAR", Direccion.BAJAR);
+        }
     }
 
     public int getNumero() {
         return numero;
     }
-
-    public BotonPiso getBotonSubir() {
-        return botonSubir;
-    }
-
-    public BotonPiso getBotonBajar() {
-        return botonBajar;
-    }
 }
+

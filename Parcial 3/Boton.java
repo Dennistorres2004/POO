@@ -1,25 +1,23 @@
-public abstract class Boton {
-    private boolean iluminado;
-    private String id;
+public class Boton {
+    protected boolean encendido;
+    protected String nombre;
 
-    public Boton(String id) {
-        this.id = id;
-        this.iluminado = false;
+    public Boton(String nombre) {
+        this.nombre = nombre;
+        this.encendido = false;
     }
 
-    public boolean estaIluminado() {
-        return iluminado;
+    public void presionar() {
+        encendido = true;
+        System.out.println(" Botón presionado: " + nombre);
     }
 
-    public void encenderLuz() {
-        iluminado = true;
+    public void apagar() {
+        encendido = false;
     }
 
-    public void apagarLuz() {
-        iluminado = false;
-    }
-
-    public String getId() {
-        return id;
+    public boolean estaEncendido() {
+        return encendido;
     }
 }
+

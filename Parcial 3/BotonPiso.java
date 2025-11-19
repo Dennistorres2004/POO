@@ -1,18 +1,12 @@
 public class BotonPiso extends Boton {
-    private int numeroPiso;
-    private Direccion direccionSolicitada;
+    private Direccion direccion;
 
-    public BotonPiso(int numeroPiso, Direccion direccion) {
-        super("BP-" + numeroPiso + "-" + direccion);
-        this.numeroPiso = numeroPiso;
-        this.direccionSolicitada = direccion;
+    public BotonPiso(String nombre, Direccion direccion) {
+        super(nombre);
+        this.direccion = direccion;
     }
 
-    public int getNumeroPiso() {
-        return numeroPiso;
-    }
-
-    public Direccion getDireccionSolicitada() {
-        return direccionSolicitada;
+    public Direccion getDireccion() {
+        return direccion;
     }
 }

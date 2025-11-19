@@ -1,31 +1,28 @@
 public class Puerta {
     private boolean abierta;
-    private boolean sensorObstaculo;
+    private boolean obstaculo;
 
     public Puerta() {
         abierta = false;
-        sensorObstaculo = false;
+        obstaculo = false;
     }
 
     public void abrir() {
         abierta = true;
-        System.out.println("Puerta abierta.");
+        System.out.println(" Puerta abierta");
     }
 
     public void cerrar() {
-        if (!sensorObstaculo) {
-            abierta = false;
-            System.out.println("Puerta cerrada.");
-        } else {
-            System.out.println("¡Obstáculo detectado! No se puede cerrar la puerta.");
+        if (obstaculo) {
+            System.out.println(" No se puede cerrar: obstáculo detectado");
+            return;
         }
+        abierta = false;
+        System.out.println(" Puerta cerrada");
     }
 
-    public void activarSensorObstaculo(boolean estado) {
-        sensorObstaculo = estado;
-    }
-
-    public boolean estaAbierta() {
-        return abierta;
+    public void activarObstaculo(boolean estado) {
+        obstaculo = estado;
     }
 }
+

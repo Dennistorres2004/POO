@@ -1,5 +1,6 @@
 public enum Direccion {
-    SUBIENDO,
-    BAJANDO,
+    SUBIR,
+    BAJAR,
     QUIETO
 }
+
